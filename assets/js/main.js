@@ -16,11 +16,10 @@ function convertPokemonToLi(pokemon) {
                     ${pokemon.types.map((type) => `<li class="type ${type}">${type}</li>`).join('')}
                 </ol>
 
-                <img src="${pokemon.photo}"
-                     alt="${pokemon.name}">
+                <img class="pokemon-image" src="${pokemon.photo}" alt="${pokemon.name}">
             </div>
         </li>
-    `
+    `;
 }
 
 function loadPokemonItens(offset, limit) {
@@ -45,3 +44,15 @@ loadMoreButton.addEventListener('click', () => {
         loadPokemonItens(offset, limit)
     }
 })
+
+document.addEventListener('DOMContentLoaded', () => {
+    const pokemonImages = document.querySelectorAll('.pokemon-image');
+
+    pokemonImages.forEach((image) => {
+        image.addEventListener('click', () => {
+            const pokemonUrl = image.dataset.pokemonUrl;
+            const pokemonDetailsUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonUrl}`;
+            window.open(pokemonDetailsUrl, '_blank');
+        });
+    });
+});
